@@ -1,0 +1,124 @@
+.quienes-hero {
+  background: linear-gradient(120deg, var(--color-primario) 0%, #1d7fd6 100%);
+  color: #fff;
+  padding: 48px 0;
+}
+
+.quienes-etiqueta {
+  display: inline-block;
+  background: var(--color-acento);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.quienes-titulo {
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-weight: 800;
+  max-width: 720px;
+}
+
+.quienes-bajada {
+  max-width: 640px;
+  font-size: 1.05rem;
+  opacity: 0.95;
+  margin-bottom: 0;
+}
+
+/* Línea de tiempo */
+.quienes-linea {
+  border-left: 3px solid var(--color-acento);
+  padding-left: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.quienes-hito {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.quienes-hito::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 18px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-primario);
+  border: 3px solid var(--color-fondo);
+}
+
+.quienes-hito-anio {
+  display: block;
+  font-weight: 800;
+  color: var(--color-primario);
+}
+
+/* Misión y visión */
+.quienes-mv {
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.quienes-mv i {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.quienes-mv-azul {
+  background: var(--color-primario-claro);
+  color: var(--color-primario-oscuro);
+}
+
+.quienes-mv-verde {
+  background: var(--color-acento-claro);
+  color: #17572a;
+}
+
+/* Valores */
+.quienes-valor {
+  padding: 20px;
+}
+
+.quienes-valor-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  background: var(--color-primario-claro);
+  color: var(--color-primario);
+}
+
+/* Cifras */
+.quienes-cifras {
+  background: var(--color-primario-oscuro);
+  color: #fff;
+  border-radius: 16px;
+  padding: 28px 16px;
+}
+
+.quienes-cifra-numero {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #b9f0c6;
+}
+
+.quienes-cifra-texto {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}

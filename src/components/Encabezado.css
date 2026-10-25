@@ -1,0 +1,42 @@
+.encabezado-aviso {
+  background: var(--color-primario-oscuro);
+  color: #fff;
+  font-size: 0.82rem;
+  padding: 6px 0;
+}
+
+.encabezado-principal {
+  background: var(--color-primario);
+  color: #fff;
+  padding: 14px 0;
+}
+
+.encabezado-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.6rem;
+  letter-spacing: -0.5px;
+}
+
+.encabezado-logo:hover {
+  color: #fff;
+}
+
+.encabezado-logo-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--color-acento);
+  font-size: 1.4rem;
+}
+
+.encabezado-logo-texto strong {
+  font-weight: 800;
+  color: #b9f0c6;
+}

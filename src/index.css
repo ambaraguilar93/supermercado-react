@@ -1,0 +1,59 @@
+/* ============================================================
+   Estilos globales: variables, body y base de componentes Bootstrap
+   ============================================================ */
+:root {
+  --color-primario: #0a5ebd;
+  --color-primario-oscuro: #07407f;
+  --color-primario-claro: #e7f1fb;
+  --color-acento: #2aa84a;
+  --color-acento-oscuro: #1f8a3a;
+  --color-acento-claro: #e6f6ea;
+  --color-alerta: #f5a524;
+  --color-peligro: #d93a3a;
+  --color-fondo: #f4f7fb;
+  --color-texto: #1f2a37;
+  --color-texto-suave: #5b6776;
+  --color-borde: #dde4ee;
+  --alto-menu-inferior: 68px;
+
+  /* Se conectan las variables de Bootstrap con la paleta del sitio */
+  --bs-primary: var(--color-primario);
+  --bs-primary-rgb: 10, 94, 189;
+  --bs-success: var(--color-acento);
+  --bs-success-rgb: 42, 168, 74;
+  --bs-link-color: var(--color-primario);
+  --bs-link-hover-color: var(--color-primario-oscuro);
+  --bs-body-font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primario);
+  --bs-btn-border-color: var(--color-primario);
+  --bs-btn-hover-bg: var(--color-primario-oscuro);
+  --bs-btn-hover-border-color: var(--color-primario-oscuro);
+  --bs-btn-active-bg: var(--color-primario-oscuro);
+  --bs-btn-active-border-color: var(--color-primario-oscuro);
+}
+
+.btn-success {
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-hover-bg: var(--color-acento-oscuro);
+  --bs-btn-hover-border-color: var(--color-acento-oscuro);
+  --bs-btn-active-bg: var(--color-acento-oscuro);
+  --bs-btn-active-border-color: var(--color-acento-oscuro);
+}
+
+/* Foco visible para accesibilidad */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(10, 94, 189, 0.45);
+  outline-offset: 2px;
+}

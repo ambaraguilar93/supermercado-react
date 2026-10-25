@@ -1,0 +1,222 @@
+/* ---------- Franja de categorías ---------- */
+.home-categorias {
+  background: #fff;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.home-categorias-lista {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.home-categoria {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-texto);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.home-categoria:hover {
+  border-color: var(--color-primario);
+  color: var(--color-primario);
+}
+
+.home-categoria.activa {
+  background: var(--color-primario);
+  border-color: var(--color-primario);
+  color: #fff;
+}
+
+/* ---------- Banner y aviso ---------- */
+.home-banner {
+  background: linear-gradient(120deg, var(--color-primario) 0%, #1d7fd6 60%, var(--color-acento) 140%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-banner::after {
+  content: '🛒';
+  position: absolute;
+  right: 24px;
+  bottom: -14px;
+  font-size: 7rem;
+  opacity: 0.18;
+}
+
+.home-banner-etiqueta {
+  display: inline-block;
+  background: var(--color-acento);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.home-banner-titulo {
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  font-weight: 800;
+  max-width: 560px;
+}
+
+.home-banner-texto {
+  max-width: 520px;
+  opacity: 0.95;
+}
+
+.home-promo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-acento-claro);
+  border: 1px solid #bfe5c8;
+  border-radius: 18px;
+  padding: 24px;
+  color: #17572a;
+}
+
+.home-promo-icono {
+  font-size: 2.2rem;
+  color: var(--color-acento-oscuro);
+}
+
+.home-promo-titulo {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* ---------- Indicadores ---------- */
+.home-kpi {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  padding: 16px;
+  height: 100%;
+}
+
+.home-kpi-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.home-kpi-icono.azul { background: var(--color-primario-claro); color: var(--color-primario); }
+.home-kpi-icono.verde { background: var(--color-acento-claro); color: var(--color-acento-oscuro); }
+.home-kpi-icono.naranja { background: #fff3dc; color: #b86e00; }
+.home-kpi-icono.rojo { background: #fde8e8; color: var(--color-peligro); }
+
+.home-kpi-valor {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.home-kpi-etiqueta {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--color-texto-suave);
+}
+
+/* ---------- Tarjetas de producto ---------- */
+.producto-tarjeta {
+  position: relative;
+  height: 100%;
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: 14px;
+  padding: 16px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.producto-tarjeta:hover {
+  box-shadow: 0 6px 18px rgba(16, 42, 80, 0.12);
+  transform: translateY(-2px);
+}
+
+.producto-estado {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.producto-estado.disponible { background: var(--color-acento-claro); color: var(--color-acento-oscuro); }
+.producto-estado.bajo { background: #fff3dc; color: #a35f00; }
+.producto-estado.agotado { background: #fde8e8; color: #b42323; }
+
+.producto-imagen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  margin: 18px 0 8px;
+  font-size: 3.6rem;
+  background: var(--color-fondo);
+  border-radius: 12px;
+}
+
+.producto-sku {
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  color: var(--color-texto-suave);
+}
+
+.producto-nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.producto-presentacion {
+  font-size: 0.82rem;
+  color: var(--color-texto-suave);
+  margin-bottom: 6px;
+}
+
+.producto-precio {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primario-oscuro);
+  margin-bottom: 10px;
+}
+
+.producto-stock .progress {
+  height: 8px;
+  margin: 4px 0;
+  background: #e8edf4;
+}
+
+.barra-disponible { background-color: var(--color-acento); }
+.barra-bajo { background-color: var(--color-alerta); }
+.barra-agotado { background-color: var(--color-peligro); }
