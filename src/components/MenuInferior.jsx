@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './MenuInferior.css'
 
 // "to" debe coincidir exactamente con el "path" de su Route en App.jsx
@@ -9,27 +9,27 @@ const opciones = [
 ]
 
 function MenuInferior() {
-  // useLocation entrega la URL actual para marcar la opción activa
-  const { pathname } = useLocation()
-
   return (
     <nav className="menu-inferior" aria-label="Navegación principal">
       <ul className="menu-inferior-lista container">
-        {opciones.map((opcion) => {
-          const activa = pathname === opcion.to
-          return (
-            <li key={opcion.to} className="menu-inferior-item">
-              <Link
-                to={opcion.to}
-                className={`menu-inferior-enlace ${activa ? 'activa' : ''}`}
-                aria-current={activa ? 'page' : undefined}
-              >
-                <i className={`bi ${opcion.icono}${activa ? '-fill' : ''}`}></i>
-                <span>{opcion.etiqueta}</span>
-              </Link>
-            </li>
-          )
-        })}
+        {opciones.map((opcion) => (
+          <li key={opcion.to} className="menu-inferior-item">
+            {/* NavLink calcula solo si la ruta está activa y agrega aria-current="page".
+                "end" evita que "/" quede activo en todas las páginas. */}
+            <NavLink
+              to={opcion.to}
+              end
+              className={({ isActive }) => `menu-inferior-enlace ${isActive ? 'activa' : ''}`}
+            >
+              {({ isActive }) => (
+                <>
+                  <i className={`bi ${opcion.icono}${isActive ? '-fill' : ''}`}></i>
+                  <span>{opcion.etiqueta}</span>
+                </>
+              )}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   )

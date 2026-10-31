@@ -1,4 +1,4 @@
-/* ---------- Franja de categorías ---------- */
+/* ---------- Categorías ---------- */
 .home-categorias {
   background: #fff;
   border-bottom: 1px solid var(--color-borde);
@@ -127,10 +127,25 @@
   flex-shrink: 0;
 }
 
-.home-kpi-icono.azul { background: var(--color-primario-claro); color: var(--color-primario); }
-.home-kpi-icono.verde { background: var(--color-acento-claro); color: var(--color-acento-oscuro); }
-.home-kpi-icono.naranja { background: #fff3dc; color: #b86e00; }
-.home-kpi-icono.rojo { background: #fde8e8; color: var(--color-peligro); }
+.home-kpi-icono.azul {
+  background: var(--color-primario-claro);
+  color: var(--color-primario);
+}
+
+.home-kpi-icono.verde {
+  background: var(--color-acento-claro);
+  color: var(--color-acento-oscuro);
+}
+
+.home-kpi-icono.naranja {
+  background: #fff3dc;
+  color: #b86e00;
+}
+
+.home-kpi-icono.rojo {
+  background: #fde8e8;
+  color: var(--color-peligro);
+}
 
 .home-kpi-valor {
   display: block;
@@ -171,9 +186,20 @@
   border-radius: 999px;
 }
 
-.producto-estado.disponible { background: var(--color-acento-claro); color: var(--color-acento-oscuro); }
-.producto-estado.bajo { background: #fff3dc; color: #a35f00; }
-.producto-estado.agotado { background: #fde8e8; color: #b42323; }
+.producto-estado.disponible {
+  background: var(--color-acento-claro);
+  color: var(--color-acento-oscuro);
+}
+
+.producto-estado.bajo {
+  background: #fff3dc;
+  color: #a35f00;
+}
+
+.producto-estado.agotado {
+  background: #fde8e8;
+  color: #b42323;
+}
 
 .producto-imagen {
   display: flex;
@@ -217,6 +243,21 @@
   background: #e8edf4;
 }
 
-.barra-disponible { background-color: var(--color-acento); }
-.barra-bajo { background-color: var(--color-alerta); }
-.barra-agotado { background-color: var(--color-peligro); }
+.barra-disponible {
+  background-color: var(--color-acento);
+}
+
+.barra-bajo {
+  background-color: var(--color-alerta);
+}
+
+.barra-agotado {
+  background-color: var(--color-peligro);
+}
+
+.producto-marca {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  margin-bottom: 2px;
+}
