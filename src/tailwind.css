@@ -1,0 +1,22 @@
+/* ============================================================
+   Tailwind CSS v4 conviviendo con Bootstrap
+   - Solo se importan "theme" y "utilities". Se omite "preflight" (el reset de Tailwind)
+     para no pisar el reset de Bootstrap que usan las páginas de la semana 1.
+   - prefix(tw): todas las clases llevan el prefijo "tw:" (ej. tw:flex, tw:bg-primario).
+     Así no chocan con clases de Bootstrap como container, table, border o shadow.
+   - Las utilidades se importan sin "layer()" a propósito: Bootstrap no está en una capa,
+     y una capa de CSS siempre pierde frente a estilos sin capa.
+   ============================================================ */
+@import 'tailwindcss/theme.css' prefix(tw);
+@import 'tailwindcss/utilities.css' prefix(tw);
+
+/* Paleta del sitio disponible como clases Tailwind (tw:bg-primario, tw:text-acento, ...) */
+@theme {
+  --color-primario: #0a5ebd;
+  --color-primario-oscuro: #07407f;
+  --color-primario-claro: #e7f1fb;
+  --color-acento: #2aa84a;
+  --color-acento-claro: #e6f6ea;
+  --color-peligro: #d93a3a;
+  --color-borde: #dde4ee;
+}

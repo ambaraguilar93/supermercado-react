@@ -1,26 +1,34 @@
 import { useState } from 'react'
-import { categorias, productos, obtenerEstadoStock, etiquetasEstado } from '../data/productos.js'
+import { useInventario } from '../context/InventarioContext.jsx'
+import { calcularIndicadores, filtrarProductos } from '../utils/inventario.js'
+import CategoriasNav from '../components/home/CategoriasNav.jsx'
+import KpiCard from '../components/home/KpiCard.jsx'
+import FiltrosInventario from '../components/home/FiltrosInventario.jsx'
+import ProductoCard from '../components/home/ProductoCard.jsx'
 import './Home.css'
 
-const formatoPeso = (valor) => '$' + valor.toLocaleString('es-CL')
-
 function Home() {
+  // El inventario viene del estado global
+  // Los filtros son estado local de esta página
+  const { productos } = useInventario()
   const [categoriaActiva, setCategoriaActiva] = useState('todas')
   const [busqueda, setBusqueda] = useState('')
   const [estadoFiltro, setEstadoFiltro] = useState('todos')
 
-  // Indicadores generales del inventario
-  const totalProductos = productos.length
-  const totalUnidades = productos.reduce((suma, p) => suma + p.stock, 0)
-  const totalBajos = productos.filter((p) => obtenerEstadoStock(p) === 'bajo').length
-  const totalAgotados = productos.filter((p) => obtenerEstadoStock(p) === 'agotado').length
+  const { totalProductos, totalUnidades, totalBajos, totalAgotados } = calcularIndicadores(productos)
 
-  // Productos que cumplen con los filtros elegidos
-  const productosFiltrados = productos.filter((p) => {
-    const coincideCategoria = categoriaActiva === 'todas' || p.categoria === categoriaActiva
-    const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda.trim().toLowerCase())
-    const coincideEstado = estadoFiltro === 'todos' || obtenerEstadoStock(p) === estadoFiltro
-    return coincideCategoria && coincideBusqueda && coincideEstado
+  // Un arreglo de datos + un solo componente KpiCard
+  const indicadores = [
+    { id: 'productos', icono: 'bi-box-seam', color: 'azul', valor: totalProductos, etiqueta: 'Productos' },
+    { id: 'unidades', icono: 'bi-stack', color: 'verde', valor: totalUnidades.toLocaleString('es-CL'), etiqueta: 'Unidades en stock' },
+    { id: 'bajos', icono: 'bi-exclamation-circle', color: 'naranja', valor: totalBajos, etiqueta: 'Stock bajo' },
+    { id: 'agotados', icono: 'bi-x-circle', color: 'rojo', valor: totalAgotados, etiqueta: 'Agotados' },
+  ]
+
+  const productosFiltrados = filtrarProductos(productos, {
+    categoria: categoriaActiva,
+    busqueda,
+    estado: estadoFiltro,
   })
 
   const limpiarFiltros = () => {
@@ -31,25 +39,7 @@ function Home() {
 
   return (
     <div className="home">
-      {/* Categorías, al estilo de los supermercados */}
-      <div className="home-categorias">
-        <div className="container">
-          <ul className="home-categorias-lista" aria-label="Categorías">
-            {categorias.map((cat) => (
-              <li key={cat.id}>
-                <button
-                  type="button"
-                  className={`home-categoria ${categoriaActiva === cat.id ? 'activa' : ''}`}
-                  onClick={() => setCategoriaActiva(cat.id)}
-                >
-                  <i className={`bi ${cat.icono}`}></i>
-                  {cat.nombre}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <CategoriasNav categoriaActiva={categoriaActiva} onSeleccionar={setCategoriaActiva} />
 
       <div className="container py-4">
         {/* Banner principal */}
@@ -66,82 +56,20 @@ function Home() {
 
         {/* Indicadores */}
         <section className="row g-3 mb-4" aria-label="Indicadores del inventario">
-          <div className="col-6 col-lg-3">
-            <div className="home-kpi">
-              <span className="home-kpi-icono azul"><i className="bi bi-box-seam"></i></span>
-              <div>
-                <span className="home-kpi-valor">{totalProductos}</span>
-                <span className="home-kpi-etiqueta">Productos</span>
-              </div>
+          {indicadores.map((kpi) => (
+            <div key={kpi.id} className="col-6 col-lg-3">
+              <KpiCard icono={kpi.icono} color={kpi.color} valor={kpi.valor} etiqueta={kpi.etiqueta} />
             </div>
-          </div>
-          <div className="col-6 col-lg-3">
-            <div className="home-kpi">
-              <span className="home-kpi-icono verde"><i className="bi bi-stack"></i></span>
-              <div>
-                <span className="home-kpi-valor">{totalUnidades.toLocaleString('es-CL')}</span>
-                <span className="home-kpi-etiqueta">Unidades en stock</span>
-              </div>
-            </div>
-          </div>
-          <div className="col-6 col-lg-3">
-            <div className="home-kpi">
-              <span className="home-kpi-icono naranja"><i className="bi bi-exclamation-circle"></i></span>
-              <div>
-                <span className="home-kpi-valor">{totalBajos}</span>
-                <span className="home-kpi-etiqueta">Stock bajo</span>
-              </div>
-            </div>
-          </div>
-          <div className="col-6 col-lg-3">
-            <div className="home-kpi">
-              <span className="home-kpi-icono rojo"><i className="bi bi-x-circle"></i></span>
-              <div>
-                <span className="home-kpi-valor">{totalAgotados}</span>
-                <span className="home-kpi-etiqueta">Agotados</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </section>
 
-        {/* Buscador y filtro por estado */}
-        <section className="home-filtros tarjeta-sitio p-3 mb-4">
-          <div className="row g-2 align-items-center">
-            <div className="col-md-7">
-              <label htmlFor="busqueda" className="visually-hidden">Buscar producto</label>
-              <div className="input-group">
-                <span className="input-group-text bg-white"><i className="bi bi-search"></i></span>
-                <input
-                  id="busqueda"
-                  type="search"
-                  className="form-control"
-                  placeholder="Busca un producto por nombre"
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="col-8 col-md-3">
-              <label htmlFor="estado" className="visually-hidden">Filtrar por estado de stock</label>
-              <select
-                id="estado"
-                className="form-select"
-                value={estadoFiltro}
-                onChange={(e) => setEstadoFiltro(e.target.value)}
-              >
-                <option value="todos">Todos los estados</option>
-                <option value="disponible">Disponible</option>
-                <option value="bajo">Stock bajo</option>
-                <option value="agotado">Agotado</option>
-              </select>
-            </div>
-            <div className="col-4 col-md-2 d-grid">
-              <button type="button" className="btn btn-outline-primary" onClick={limpiarFiltros}>
-                Limpiar
-              </button>
-            </div>
-          </div>
-        </section>
+        <FiltrosInventario
+          busqueda={busqueda}
+          onBusqueda={setBusqueda}
+          estado={estadoFiltro}
+          onEstado={setEstadoFiltro}
+          onLimpiar={limpiarFiltros}
+        />
 
         {/* Listado de productos */}
         <section aria-label="Listado de productos">
@@ -159,33 +87,11 @@ function Home() {
             </div>
           ) : (
             <div className="row g-3">
-              {productosFiltrados.map((producto) => {
-                const estado = obtenerEstadoStock(producto)
-                // Porcentaje de la barra (stock actual respecto al doble del mínimo)
-                const porcentaje = Math.min(100, Math.round((producto.stock / (producto.stockMinimo * 2)) * 100))
-                return (
-                  <div key={producto.id} className="col-6 col-md-4 col-lg-3">
-                    <article className="producto-tarjeta">
-                      <span className={`producto-estado ${estado}`}>{etiquetasEstado[estado]}</span>
-                      <div className="producto-imagen" aria-hidden="true">{producto.emoji}</div>
-                      <p className="producto-sku mb-1">{producto.sku}</p>
-                      <h3 className="producto-nombre">{producto.nombre}</h3>
-                      <p className="producto-presentacion">{producto.presentacion}</p>
-                      <p className="producto-precio">{formatoPeso(producto.precio)}</p>
-                      <div className="producto-stock">
-                        <div className="d-flex justify-content-between small">
-                          <span>Stock</span>
-                          <strong>{producto.stock} un.</strong>
-                        </div>
-                        <div className="progress" role="progressbar" aria-label={`Nivel de stock de ${producto.nombre}`} aria-valuenow={porcentaje} aria-valuemin="0" aria-valuemax="100">
-                          <div className={`progress-bar barra-${estado}`} style={{ width: `${porcentaje}%` }}></div>
-                        </div>
-                        <small className="text-secondary">Mínimo: {producto.stockMinimo} un.</small>
-                      </div>
-                    </article>
-                  </div>
-                )
-              })}
+              {productosFiltrados.map((producto) => (
+                <div key={producto.id} className="col-6 col-md-4 col-lg-3">
+                  <ProductoCard producto={producto} />
+                </div>
+              ))}
             </div>
           )}
         </section>
