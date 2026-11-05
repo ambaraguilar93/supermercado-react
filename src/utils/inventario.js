@@ -1,5 +1,10 @@
 // Reglas de negocio del inventario
-import { CATEGORIAS_PRODUCTO, EMOJI_POR_CATEGORIA, PREFIJOS_SKU } from '../constants/inventario.js'
+import {
+  CATEGORIAS_PRODUCTO,
+  EMOJI_POR_CATEGORIA,
+  PREFIJOS_SKU,
+  REGLAS_CAMPOS,
+} from '../constants/inventario.js'
 
 export const formatoPeso = (valor) => '$' + valor.toLocaleString('es-CL')
 
@@ -42,7 +47,7 @@ export function nombreCategoria(id) {
   return CATEGORIAS_PRODUCTO.find((c) => c.id === id)?.nombre ?? id
 }
 
-// Siguiente SKU de una categoría (prefijo + correlativo)
+// Unico lugar donde se calcula un SKU
 export function generarSku(productos, categoria) {
   const prefijo = PREFIJOS_SKU[categoria] ?? 'XX'
   const mayor = productos
@@ -68,16 +73,18 @@ export function crearProducto(datos, productos) {
   }
 }
 
-const esEnteroNoNegativo = (valor) => /^\d+$/.test(String(valor).trim())
+// Revisa un campo contra su regla (patrón + mensaje) definida en REGLAS_CAMPOS
+const cumpleRegla = (campo, valor) => REGLAS_CAMPOS[campo].patron.test(valor.trim())
 
 // Valida los datos del formulario
 export function validarProducto(datos, productos) {
   const errores = {}
   const nombre = datos.nombre.trim()
   const marca = datos.marca.trim()
+  const presentacion = datos.presentacion.trim()
 
   if (!nombre) errores.nombre = 'Ingresa el nombre del producto.'
-  else if (nombre.length < 3) errores.nombre = 'El nombre debe tener al menos 3 caracteres.'
+  else if (!cumpleRegla('nombre', nombre)) errores.nombre = REGLAS_CAMPOS.nombre.mensaje
   else if (
     productos.some((p) => p.nombre.toLowerCase() === nombre.toLowerCase() && p.marca.toLowerCase() === marca.toLowerCase())
   ) {
@@ -85,15 +92,15 @@ export function validarProducto(datos, productos) {
   }
 
   if (!marca) errores.marca = 'Ingresa la marca del producto.'
-  if (!datos.presentacion.trim()) errores.presentacion = 'Ingresa la presentación (ej. Caja 1 L).'
+  else if (!cumpleRegla('marca', marca)) errores.marca = REGLAS_CAMPOS.marca.mensaje
+
+  if (!presentacion) errores.presentacion = 'Ingresa la presentación (ej. Caja 1 L).'
+  else if (!cumpleRegla('presentacion', presentacion)) errores.presentacion = REGLAS_CAMPOS.presentacion.mensaje
+
   if (!CATEGORIAS_PRODUCTO.some((c) => c.id === datos.categoria)) errores.categoria = 'Elige una categoría.'
 
-  if (!esEnteroNoNegativo(datos.precio) || Number(datos.precio) <= 0) {
-    errores.precio = 'El precio debe ser un número entero mayor a 0.'
-  }
-  if (!esEnteroNoNegativo(datos.stock)) errores.stock = 'El stock debe ser un número entero (0 o más).'
-  if (!esEnteroNoNegativo(datos.stockMinimo)) {
-    errores.stockMinimo = 'El stock mínimo debe ser un número entero (0 o más).'
+  for (const campo of ['precio', 'stock', 'stockMinimo']) {
+    if (!cumpleRegla(campo, String(datos[campo]))) errores[campo] = REGLAS_CAMPOS[campo].mensaje
   }
   if (datos.emoji.trim().length > 4) errores.emoji = 'Usa un solo emoji.'
 

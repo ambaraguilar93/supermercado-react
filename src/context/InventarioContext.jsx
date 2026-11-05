@@ -7,7 +7,8 @@ const InventarioContext = createContext(null)
 export function InventarioProvider({ children }) {
   const [estado, dispatch] = useReducer(inventarioReducer, estadoInicial)
 
-  const agregarProducto = (datos) => dispatch({ type: ACCIONES.AGREGAR_PRODUCTO, payload: datos })
+  // Recibe un producto ya completo (crearProducto en utils/inventario.js)
+  const agregarProducto = (producto) => dispatch({ type: ACCIONES.AGREGAR_PRODUCTO, payload: producto })
 
   return (
     <InventarioContext.Provider value={{ productos: estado.productos, agregarProducto }}>

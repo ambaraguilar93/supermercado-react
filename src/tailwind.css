@@ -1,22 +1,42 @@
 /* ============================================================
-   Tailwind CSS v4 conviviendo con Bootstrap
-   - Solo se importan "theme" y "utilities". Se omite "preflight" (el reset de Tailwind)
-     para no pisar el reset de Bootstrap que usan las páginas de la semana 1.
-   - prefix(tw): todas las clases llevan el prefijo "tw:" (ej. tw:flex, tw:bg-primario).
-     Así no chocan con clases de Bootstrap como container, table, border o shadow.
-   - Las utilidades se importan sin "layer()" a propósito: Bootstrap no está en una capa,
-     y una capa de CSS siempre pierde frente a estilos sin capa.
+   Tailwind CSS v4: único framework de estilos del sitio.
+   - Se importa completo (incluye "preflight", el reset de Tailwind).
+   - La paleta y la tipografía del sitio viven en @theme y quedan disponibles
+     como clases: bg-primario, text-acento-oscuro, border-borde, font-sans, etc.
    ============================================================ */
-@import 'tailwindcss/theme.css' prefix(tw);
-@import 'tailwindcss/utilities.css' prefix(tw);
+@import 'tailwindcss';
 
-/* Paleta del sitio disponible como clases Tailwind (tw:bg-primario, tw:text-acento, ...) */
 @theme {
   --color-primario: #0a5ebd;
   --color-primario-oscuro: #07407f;
   --color-primario-claro: #e7f1fb;
+  --color-azul-medio: #1d7fd6;
   --color-acento: #2aa84a;
+  --color-acento-oscuro: #1f8a3a;
   --color-acento-claro: #e6f6ea;
+  --color-menta: #b9f0c6;
+  --color-alerta: #f5a524;
   --color-peligro: #d93a3a;
+  --color-fondo: #f4f7fb;
+  --color-texto: #1f2a37;
+  --color-texto-suave: #5b6776;
   --color-borde: #dde4ee;
+
+  --font-sans: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+  }
+
+  /* Foco visible para accesibilidad */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 3px solid rgb(10 94 189 / 0.45);
+    outline-offset: 2px;
+  }
 }
