@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router'
 import { InventarioProvider } from './context/InventarioContext.jsx'
 import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
@@ -7,7 +7,6 @@ import PreguntasFrecuentes from './pages/PreguntasFrecuentes.jsx'
 import IngresarArticulo from './pages/IngresarArticulo.jsx'
 import ListadoArticulos from './pages/ListadoArticulos.jsx'
 import NoEncontrada from './pages/NoEncontrada.jsx'
-import './App.css'
 
 function App() {
   return (

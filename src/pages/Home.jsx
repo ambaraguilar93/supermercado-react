@@ -5,7 +5,6 @@ import CategoriasNav from '../components/home/CategoriasNav.jsx'
 import KpiCard from '../components/home/KpiCard.jsx'
 import FiltrosInventario from '../components/home/FiltrosInventario.jsx'
 import ProductoCard from '../components/home/ProductoCard.jsx'
-import './Home.css'
 
 function Home() {
   // El inventario viene del estado global
@@ -38,16 +37,20 @@ function Home() {
   }
 
   return (
-    <div className="home">
+    <div>
       <CategoriasNav categoriaActiva={categoriaActiva} onSeleccionar={setCategoriaActiva} />
 
-      <div className="container py-4">
+      <div className="mx-auto max-w-6xl px-4 py-6">
         {/* Banner principal */}
-        <section className="mb-4">
-          <div className="home-banner">
-            <span className="home-banner-etiqueta">Gestión de inventario</span>
-            <h1 className="home-banner-titulo">Controla el stock, siempre fresco y al día</h1>
-            <p className="home-banner-texto mb-0">
+        <section className="mb-6">
+          <div className="relative overflow-hidden rounded-[18px] bg-linear-[120deg,var(--color-primario)_0%,var(--color-azul-medio)_60%,var(--color-acento)_140%] p-8 text-white after:absolute after:right-6 after:-bottom-3.5 after:text-[7rem] after:opacity-20 after:content-['🛒']">
+            <span className="mb-3 inline-block rounded-full bg-acento px-3 py-1 text-[0.78rem] font-bold tracking-wide uppercase">
+              Gestión de inventario
+            </span>
+            <h1 className="mb-2 max-w-[560px] text-[clamp(1.5rem,3.4vw,2.3rem)] font-extrabold">
+              Controla el stock, siempre fresco y al día
+            </h1>
+            <p className="mb-0 max-w-[520px] opacity-95">
               Revisa la disponibilidad de los productos de la sucursal, detecta lo que está por agotarse
               y mantén la vitrina siempre llena.
             </p>
@@ -55,11 +58,9 @@ function Home() {
         </section>
 
         {/* Indicadores */}
-        <section className="row g-3 mb-4" aria-label="Indicadores del inventario">
+        <section className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="Indicadores del inventario">
           {indicadores.map((kpi) => (
-            <div key={kpi.id} className="col-6 col-lg-3">
-              <KpiCard icono={kpi.icono} color={kpi.color} valor={kpi.valor} etiqueta={kpi.etiqueta} />
-            </div>
+            <KpiCard key={kpi.id} icono={kpi.icono} color={kpi.color} valor={kpi.valor} etiqueta={kpi.etiqueta} />
           ))}
         </section>
 
@@ -73,24 +74,22 @@ function Home() {
 
         {/* Listado de productos */}
         <section aria-label="Listado de productos">
-          <div className="d-flex justify-content-between align-items-end mb-3">
-            <h2 className="h4 pagina-titulo mb-0">Productos en bodega</h2>
-            <span className="pagina-subtitulo small">
+          <div className="mb-4 flex items-end justify-between">
+            <h2 className="mb-0 text-2xl font-extrabold text-primario-oscuro">Productos en bodega</h2>
+            <span className="text-sm text-texto-suave">
               {productosFiltrados.length} de {totalProductos} productos
             </span>
           </div>
 
           {productosFiltrados.length === 0 ? (
-            <div className="tarjeta-sitio text-center p-5">
-              <i className="bi bi-search fs-1 text-secondary"></i>
+            <div className="rounded-xl border border-borde bg-white p-12 text-center shadow-sm">
+              <i className="bi bi-search text-5xl text-texto-suave"></i>
               <p className="mt-2 mb-0">No encontramos productos con esos filtros.</p>
             </div>
           ) : (
-            <div className="row g-3">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {productosFiltrados.map((producto) => (
-                <div key={producto.id} className="col-6 col-md-4 col-lg-3">
-                  <ProductoCard producto={producto} />
-                </div>
+                <ProductoCard key={producto.id} producto={producto} />
               ))}
             </div>
           )}
