@@ -1,8 +1,5 @@
 /* ============================================================
-   Tailwind CSS v4: único framework de estilos del sitio.
-   - Se importa completo (incluye "preflight", el reset de Tailwind).
-   - La paleta y la tipografía del sitio viven en @theme y quedan disponibles
-     como clases: bg-primario, text-acento-oscuro, border-borde, font-sans, etc.
+   Tailwind CSS - framework de estilos del sitio
    ============================================================ */
 @import 'tailwindcss';
 

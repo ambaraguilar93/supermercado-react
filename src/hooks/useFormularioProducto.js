@@ -13,15 +13,15 @@ export const valoresIniciales = {
   emoji: '',
 }
 
-// Toda la lógica del formulario "Ingresar artículo": valores, errores, confirmación,
-// limpieza y envío. El componente solo se encarga de dibujar el JSX.
+// Toda la lógica del formulario para ingresar articulos, los valores, errores, confirmación,
+// limpieza y envío
 export function useFormularioProducto() {
   const { productos, agregarProducto } = useInventario()
   const [valores, setValores] = useState(valoresIniciales)
   const [errores, setErrores] = useState({})
   const [exito, setExito] = useState(null)
 
-  // SKU que se asignará según la categoría elegida (valor derivado, solo para mostrar)
+  // SKU que se asignará según la categoría elegida
   const skuPrevisto = useMemo(
     () => (valores.categoria ? generarSku(productos, valores.categoria) : null),
     [productos, valores.categoria],
@@ -41,7 +41,7 @@ export function useFormularioProducto() {
     setErrores(erroresNuevos)
     if (Object.keys(erroresNuevos).length > 0) return
 
-    // El producto (con su SKU) se crea una sola vez; el mensaje de éxito usa ese mismo SKU
+    // El producto (con su SKU) se crea una sola vez
     const nuevo = crearProducto(valores, productos)
     agregarProducto(nuevo)
     setExito({ nombre: nuevo.nombre, sku: nuevo.sku })
