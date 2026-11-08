@@ -1,0 +1,1 @@
+import{j as e}from"./index-LxY8dc1S.js";import{E as n,o as r}from"./inventario-BsnDWU9n.js";const p={normal:"px-3 py-1 text-xs",compacto:"px-2.5 py-0.5 text-[0.72rem]"};function m({producto:t,tamano:a="normal",className:s=""}){const o=n[r(t)];return e.jsx("span",{className:`rounded-full font-bold whitespace-nowrap ${p[a]} ${o.insignia} ${s}`,children:o.etiqueta})}export{m as E};

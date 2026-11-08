@@ -1,0 +1,1 @@
+import{j as e}from"./index-LxY8dc1S.js";function x({titulo:a,descripcion:s,children:t}){return e.jsxs("header",{className:"mb-6 flex flex-wrap items-end justify-between gap-3",children:[e.jsxs("div",{children:[e.jsx("h1",{className:"mb-1 text-3xl font-extrabold text-primario-oscuro",children:a}),s&&e.jsx("p",{className:"mb-0 text-slate-600",children:s})]}),t]})}export{x as E};
