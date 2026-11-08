@@ -12,6 +12,9 @@ export const categorias = [
   { id: 'limpieza', nombre: 'Limpieza', icono: 'bi-droplet' },
 ]
 
+// Valor del filtro que muestra todas las categorías (no es una categoría real de producto)
+export const CATEGORIA_TODAS = 'todas'
+
 // Categorías de un producto
 export const CATEGORIAS_PRODUCTO = categorias.filter((c) => c.id !== 'todas')
 
@@ -89,3 +92,21 @@ export const REGLAS_CAMPOS = {
     mensaje: 'El stock mínimo debe ser un número entero (0 o más, hasta 7 dígitos).',
   },
 }
+
+// Campos del formulario "Ingresar artículo" (el formulario se dibuja recorriendo este arreglo)
+export const CAMPOS_FORMULARIO = [
+  { id: 'nombre', etiqueta: 'Nombre del producto', tipo: 'text', placeholder: 'Ej. Leche descremada' },
+  { id: 'marca', etiqueta: 'Marca', tipo: 'text', placeholder: 'Ej. Soprole' },
+  { id: 'presentacion', etiqueta: 'Presentación', tipo: 'text', placeholder: 'Ej. Caja 1 L' },
+  { id: 'categoria', etiqueta: 'Categoría', tipo: 'select' },
+  { id: 'precio', etiqueta: 'Precio (CLP)', tipo: 'number', placeholder: 'Ej. 1990', min: 1 },
+  { id: 'stock', etiqueta: 'Stock actual (unidades)', tipo: 'number', placeholder: 'Ej. 50', min: 0 },
+  { id: 'stockMinimo', etiqueta: 'Stock mínimo (unidades)', tipo: 'number', placeholder: 'Ej. 20', min: 0 },
+  {
+    id: 'emoji',
+    etiqueta: 'Emoji (opcional)',
+    tipo: 'text',
+    placeholder: 'Ej. 🥛',
+    ayuda: 'Si lo dejas vacío se usa uno según la categoría.',
+  },
+]

@@ -1,5 +1,6 @@
 // Reglas de negocio del inventario
 import {
+  CATEGORIA_TODAS,
   CATEGORIAS_PRODUCTO,
   EMOJI_POR_CATEGORIA,
   PREFIJOS_SKU,
@@ -41,6 +42,13 @@ export function filtrarProductos(productos, { categoria, busqueda, estado }) {
     const coincideEstado = estado === 'todos' || obtenerEstadoStock(p) === estado
     return coincideCategoria && coincideTexto && coincideEstado
   })
+}
+
+// Productos de una categoría. Devuelve un arreglo nuevo y no modifica el inventario original.
+// Con CATEGORIA_TODAS devuelve todos los productos.
+export function filtrarPorCategoria(productos, categoria) {
+  if (categoria === CATEGORIA_TODAS) return productos
+  return productos.filter((p) => p.categoria === categoria)
 }
 
 export function nombreCategoria(id) {

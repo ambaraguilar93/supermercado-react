@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Boton from '../components/ui/Boton.jsx'
 
 function NoEncontrada() {
   return (
@@ -8,13 +8,9 @@ function NoEncontrada() {
       <p className="mb-4 text-texto-suave">
         La dirección que ingresaste no existe en GranMarket.
       </p>
-      <Link
-        to="/"
-        className="inline-block rounded-lg bg-primario px-4 py-2 font-semibold text-white no-underline hover:bg-primario-oscuro"
-      >
-        <i className="bi bi-house-door mr-2"></i>
+      <Boton to="/" icono="bi-house-door">
         Volver al inicio
-      </Link>
+      </Boton>
     </div>
   )
 }

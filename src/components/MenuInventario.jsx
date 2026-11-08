@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router'
+import { useInventario } from '../context/InventarioContext.jsx'
+import { totalUnidadesCarrito } from '../utils/carrito.js'
 
 // Menú del inventario
 const opciones = [
@@ -15,6 +17,9 @@ const claseEnlace = ({ isActive }) =>
   ].join(' ')
 
 function MenuInventario() {
+  const { carrito } = useInventario()
+  const unidades = totalUnidadesCarrito(carrito)
+
   return (
     <nav
       aria-label="Menú del inventario"
@@ -24,7 +29,7 @@ function MenuInventario() {
         <span className="hidden pr-3 text-xs font-bold uppercase tracking-wider text-slate-500 sm:block">
           Inventario
         </span>
-        <ul className="m-0 flex list-none p-0">
+        <ul className="m-0 flex w-full list-none p-0">
           {opciones.map((opcion) => (
             <li key={opcion.to}>
               <NavLink to={opcion.to} className={claseEnlace}>
@@ -33,6 +38,21 @@ function MenuInventario() {
               </NavLink>
             </li>
           ))}
+          {/* El carrito va a la derecha y muestra cuántas unidades tiene */}
+          <li className="ml-auto">
+            <NavLink to="/carrito" className={claseEnlace}>
+              <i className="bi bi-cart3"></i>
+              Carrito
+              {unidades > 0 && (
+                <span
+                  className="rounded-full bg-acento px-2 py-0.5 text-xs font-bold text-white"
+                  aria-label={`${unidades} unidades en el carrito`}
+                >
+                  {unidades}
+                </span>
+              )}
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
